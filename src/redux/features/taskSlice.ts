@@ -62,7 +62,7 @@ export const TaskList = createSlice({
             reducer: (state, action) => {
                 state.push(action.payload);
             },
-            prepare: ({ id, title, description, dueDate, assigne }: Task) => {
+            prepare : ({ id, title, description, dueDate, assigne }: Task) : any => {
                 id = id || nanoid();
                 const assignedDate = new Date().toISOString().split('T')[0];
                 return {
@@ -83,7 +83,12 @@ export const TaskList = createSlice({
             const { taskId, reaction } = action.payload;
             const postExisting  = state.find((task) => task.id === taskId);
             if (postExisting) {
+                if(postExisting.reactions[reaction] === 0)
                 postExisting.reactions[reaction]++;
+            else{
+                    postExisting.reactions[reaction]--;
+
+                }
             }
         }
     }
